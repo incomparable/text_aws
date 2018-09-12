@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<table border="1" width="100%" id="file_table">
+    <thead>
+        <th>Serial No.</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Specification</th>
+        <th>Cabin_no</th>
+        <th>Birth_date</th>
+        <th>Contact</th>
+        <th>Created_at</th>
+        <th>X</th>
+
+    </thead>
+    <tbody>
+        {% for item in doctor %}
+        <tr>
+            <td></td>
+            <td>{{item.id}}</td>
+            <td>{{item.d_name}}</td>
+            <td>{{item.d_age}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.specification}}</td>
+            <td>{{item.cabin_no}}</td>
+            <td>{{item.birth_date}}</td>
+            <td>{{item.contact}}</td>
+            <td>{{item.created_at}}</td>
+            <td style="text-align:center;"><a href="/app/delete-doctor/{{ item.id }}"
+            class="delete" data-confirm="Are you sure to delete this item?">
+                <i class="fa fa-trash"></i></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table><br><br><br>
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: left;">
+<p> Add Doctor</p><br>
+
+
+    <form class="form-horizontal" role="form" method="post" action="/app/Doctor/">
+        {% csrf_token %}
+        <div class="form-group" id="main-form">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" name="name" class="form-control" id="doc-name" placeholder="Doctor Name" value="" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" class="form-control" name="age" value="" placeholder="Doctor Age" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" id="email" class="form-control" name="email" value="" placeholder="Doctor email" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select name="specification" class="form-control" style="padding-left: 103px;">
+                    <option value="heart" >Heart</option>
+                    <option value="scin">Scin</option>
+                    <option value="surgeon">Surgeon</option>
+                </select>
+
+                <!-- <input type="text" name="specification" class="form-control" value="" placeholder="Doctor Specification" required> -->
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" name="cabin" value="" class="form-control" placeholder="Doctor Cabin_no" required style="padding-left: 51px;">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="date" name="birth_date" value="" class="form-control" placeholder="Doctor birth_date" required style="padding-left: 54px;">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" name="contact" value="" class="form-control" placeholder="Doctor Contact" required style="padding-left: 51px;">
+            </div>
+    
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button">
+                <center><input type="submit" value="Save" class="form-control" style="background: green; width: 200px;margin-top:62px;"></center>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float:left;">
+    <p>Update Doctor</p><br>
+
+    <form class="form-horizontal" role="form" method="post" id="form">
+        {% csrf_token %}
+        <div class="form-group" id="main-form1">
+            <select class="sele form-control" style="margin-left: 15px; width:310px;">
+                <option value="" readonly="readonly" selected disabled>Select Doctor Id | Name</option>
+                {% for item in doctor %}
+                <option name="id" value="{{item.id}}">{{item.id}} | {{item.d_name}}</option>
+                {% endfor %}
+            </select>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" hidden name="id" id="id">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Doctor Name" value="" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" class="form-control" name="age" id="age" value="" placeholder="Doctor Age" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" id="d_email" class="form-control" name="email" value="" placeholder="Doctor email" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!--<select name="specification" class="form-control" required>-->
+                    <!--<option id="specification">a</option>-->
+                    <!--<option>a1</option>-->
+                    <!--<option>b</option>-->
+                    <!--<option>c</option>-->
+                <!--</select>-->
+                <input type="text" id="specification" name="specification" class="form-control" value="" placeholder="Doctor Specification" required style="padding-left: 24px;">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" id="cabin" name="cabin" value="" class="form-control" placeholder="Doctor Cabin_no" required style="padding-left: 15px;">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="date" id="birth_date" name="birth_date" value="" class="form-control" placeholder="Doctor birth_date" required style="padding-left: 58px;">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" name="contact" value="" id="contact" class="form-control" placeholder="Doctor Contact" required style="padding-left: 51px;">
+            </div><br>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button" style="text-align:center;">
+                <center><button type="submit" id="save_btn" class="form-control" style="background: green; width: 200px;">Update</button></center>
+            </div><br><br><br>
+
+        </div>
+    </form>
+</div>
+<div class="tab-content" id="myTabContent">
+    {% if messages %}
+        <div class="alert alert-success" style="margin-top:-60px;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float:left;">
+    <p>Send Email From Doctor List</p><br>
+
+    <form class="form-horizontal" action="/app/Email/" role="form" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" class="form-control" name="to_email" placeholder="cc" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <textarea name="body_text" class="form-control" required style="width: 310px; height: 232px"></textarea>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select class="sele form-control" name="email" style="width:310px; height:37px;">
+                    <option value="" readonly="readonly" class="form-control" selected disabled>Select Doctor Id | Name</option>
+                    {% for item in doctor %}
+                    <option value="{{item.email}}">{{item.email}} | {{item.d_name}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button" style="text-align:center;">
+                <center><input type="submit" value="Send" class="form-control" style="background: green; width: 200px;"></center>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float:right; margin-right:-561px; margin-top:-373px;">-->
+    <!--<p>Update Doctor</p>-->
+<!--</div>-->
+<script>
+    $(document).ready(function () {
+
+        $("select.sele").change(function(){
+            var doc_id = $(".sele option:selected").val();
+            $.get("/app/get_doctor/"+ doc_id, function(response){
+                console.log(response);
+                var id= response['id'];
+                var d_name= response['d_name'];
+                var d_age= response['d_age'];
+                var email= response['email'];
+                var specification= response['specification'];
+                var cabin_no= response['cabin_no'];
+                var birth_date= response['birth_date'];
+                var contact = response['contact']
+
+                $("#id").val(id);
+                $("#name").val(d_name);
+                $("#age").val(d_age);
+                $("#d_email").val(email);
+                $("#specification").val(specification);
+                $("#cabin").val(cabin_no);
+                $("#birth_date").val(birth_date);
+                $("#contact").val(contact);
+            });
+        });
+    });
+
+    <!--$("select.sele").change(function(){-->
+        <!--var doc_id = $(".sele option:selected").val();-->
+        <!--$.post("/app/get_doctor/", {"csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),-->
+        <!--"id":doc_id}, function(response){-->
+        <!--console.log("", reponse)-->
+        <!--});-->
+    <!--});-->
+
+    var addSerialNumber = function () {
+        var i = 0
+        $('table tr').each(function(index) {
+            $(this).find('td:nth-child(1)').html(index-1+1);
+        });
+    };
+    addSerialNumber();
+
+    $('#file_table').DataTable();
+
+    var data = [];
+    $("#save_btn").on("click", function(){
+        var id = $("#id").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email =$("#d_email").val();
+        var specification = $("#specification").val();
+        var cabin = $("#cabin").val();
+        var birth_date = $("#birth_date").val();
+        var contact = $("#contact").val();
+        console.log("aa"+id);
+        data.push({"id": id, "name": name, "age": age, "email":email, "specification": specification,
+                    "birth_date":birth_date, "cabin": cabin, "contact":contact});
+
+        if (id && name && age && specification && cabin && birth_date && contact){
+            $.post("/app/update_doctor/", {"csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),
+                "data" : JSON.stringify(data)},
+                function(response){
+                location.reload(true);
+                toastr["success"]("Doctor has been updated!")
+            });
+
+        }else{
+            alert("please select all field and Id..");
+        }
+    });
+    <!-- confirm delete function -->
+
+    var deleteLinks = document.querySelectorAll('.delete');
+
+    for (var i = 0; i < deleteLinks.length; i++) {
+        deleteLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var choice = confirm(this.getAttribute('data-confirm'));
+
+            if (choice) {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+    }
+    $('#myTabContent').fadeIn().delay(10000).fadeOut();
+</script>
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<table border="1" width="100%" id="file_table" style="margin-left:-62px;">
+    <thead>
+        <th>Serial No.</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Place</th>
+        <th>Problem</th>
+        <th>DOB</th>
+        <th>Doctor</th>
+        <th>Cabin</th>
+        <th>contact</th>
+        <!-- <th>D_contact</th> -->
+        <th>created_at</th>
+        <th>X</th>
+
+    </thead>
+    <tbody>
+        {% for item in patient %}
+
+        <tr>
+            <td></td>
+            <td>{{item.id}}</td>
+            <td>{{item.p_name}}</td>
+            <td>{{item.p_age}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.place}}</td>
+            <td>{{item.problem}}</td>
+            <td>{{item.birth_date}}</td>
+            <td>{{item.Doctor_name}}</td>
+            <td>{{item.cabin_no}}</td>
+            <td>{{item.contact}}</td>
+            <!-- <td>{{item.d_contact}}</td> -->
+            <td>{{item.created_at}}</td>
+            <td style="text-align:center;"><a href="/app/delete-patient/{{ item.id }}"
+            class="delete" data-confirm="Are you sure to delete this item?">
+                <i class="fa fa-trash"></i></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table><br><br><br>
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: left;">
+<p> Patient Registration</p><br>
+
+
+    <form class="form-horizontal" role="form" method="post" action="/app/Patient/">
+        {% csrf_token %}
+        <div class="form-group" id="main-form">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" name="name" class="form-control" id="pat-name" placeholder="Enter the name" value="" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" class="form-control" name="age" value="" placeholder="Enter the age" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" id="email" class="form-control" name="email" value="" placeholder="Enter the email" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" name="place" class="form-control" value="" placeholder="Enter the place" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" name="problem" value="" class="form-control" placeholder="Enter the patient problem" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select name="doctor_id" class="form-control" style="padding-left: 103px;">
+                    {% for item in doctor %}
+                    <option value="{{item.id}}" >{{item.d_name}} | {{item.specification}}</option>
+                    {% endfor %}
+                </select>
+                <!-- <input type="text" name="problem" value="" class="form-control" placeholder="Patient problem" required> -->
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="date" name="birth_date" value="" class="form-control" placeholder="Enter birth_date" required style="padding-left: 54px;">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" name="contact" value="" id="contact" class="form-control" placeholder="Enter the contact number" required style="padding-left: 51px;">
+            </div>
+            <br>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button">
+                <center><input type="submit" value="Save" class="form-control" style="background: green; width: 200px;"></center>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float:left;">
+    <p>Update Patient</p><br>
+
+    <form class="form-horizontal" role="form" method="post" id="form">
+        {% csrf_token %}
+        <div class="form-group" id="main-form1">
+            <select class="sele form-control" style="margin-left: 15px; width: 310px;padding-left: 58px;">
+                <option value="" readonly="readonly" selected disabled class="form-control">Select Patient Id | Name</option>
+                {% for item in patient %}
+                <option name="id" value="{{item.id}}" class="form-control">{{item.id}} | {{item.p_name}}</option>
+                {% endfor %}
+            </select>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" hidden name="id" id="id">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter the name" value="" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" class="form-control" name="age" id="age" value="" placeholder="Enter the age" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" id="email" class="form-control" name="email" value="" placeholder="Enter the email" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" class="form-control" name="place" id="place" value="" placeholder="Enter the place" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" id="problem" name="problem" class="form-control" value="" placeholder="Enter the patient problem" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select name="doctor_id" class="form-control" selected style="padding-left: 103px;">
+                    {% for item in doctor %}
+                    <option value="{{item.id}}" >{{item.d_name}} | {{item.specification}}</option>
+                    {% endfor %}
+                </select>
+                <!-- <input type="text" name="problem" value="" class="form-control" placeholder="Patient problem" required> -->
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="date" id="birth_date" name="birth_date" value="" class="form-control" placeholder="Enter the  birth_date" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="number" name="contact" value="" id="contact" class="form-control" placeholder="Enter the contact number" required style="padding-left: 51px;">
+            </div>
+            
+            <br>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button" style="text-align:center;">
+                <center><button type="submit" id="save_btn" class="form-control" style="background: green; width: 200px;">Update</button></center>
+            </div><br><br><br>
+
+        </div>
+    </form>
+</div>
+<div class="tab-content" id="myTabContent">
+    {% if messages %}
+        <div class="alert alert-success" style="margin-top:-60px;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float:left;">
+    <p>Send Email From Patient List</p><br>
+
+    <form class="form-horizontal" action="/app/Email/" role="form" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" class="form-control" name="to_email" placeholder="cc" required>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <textarea name="body_text" class="form-control" required style="width: 310px; height: 193px"></textarea>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <select class="sele form-control" name="email"style="width:310px;height:37px;">
+                    <option value="" readonly="readonly" class="form-control" selected disabled>Select Patient Id | Name</option>
+                    {% for item in patient %}
+                    <option value="{{item.email}}">{{item.email}} | {{item.p_name}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button" style="text-align:center;">
+                <center><input type="submit" value="Send" class="form-control" style="background: green; width: 200px;"></center>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float:right; margin-right:-561px; margin-top:-373px;">-->
+    <!--<p>Update Doctor</p>-->
+<!--</div>-->
+<script>
+    $(document).ready(function () {
+
+        $("select.sele").change(function(){
+            var doc_id = $(".sele option:selected").val();
+            $.get("/app/get_patient/"+ doc_id, function(response){
+                console.log(response);
+                var id= response['id'];
+                var p_name= response['p_name'];
+                var p_age= response['p_age'];
+                var email= response['email'];
+                var place= response['place'];
+
+                var problem= response['problem'];
+                var doc_id= response['doc_id'];
+
+
+
+                var cabin_no= response['cabin_no'];
+                var birth_date= response['birth_date'];
+
+                $("#id").val(id);
+                $("#name").val(d_name);
+                $("#age").val(d_age);
+                $("#d_email").val(email);
+                $("#specification").val(specification);
+                $("#cabin").val(cabin_no);
+                $("#birth_date").val(birth_date);
+            });
+        });
+    });
+
+    <!--$("select.sele").change(function(){-->
+        <!--var doc_id = $(".sele option:selected").val();-->
+        <!--$.post("/app/get_doctor/", {"csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),-->
+        <!--"id":doc_id}, function(response){-->
+        <!--console.log("", reponse)-->
+        <!--});-->
+    <!--});-->
+
+    var addSerialNumber = function () {
+        var i = 0
+        $('table tr').each(function(index) {
+            $(this).find('td:nth-child(1)').html(index-1+1);
+        });
+    };
+    addSerialNumber();
+
+    $('#file_table').DataTable();
+
+    var data = [];
+    $("#save_btn").on("click", function(){
+        var id = $("#id").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email =$("#d_email").val();
+        var specification = $("#specification").val();
+        var cabin = $("#cabin").val();
+        var birth_date = $("#birth_date").val();
+        console.log("aa"+id);
+        data.push({"id": id, "name": name, "age": age, "email":email, "specification": specification,
+                    "birth_date":birth_date, "cabin": cabin});
+
+        if (id && name && age && specification && cabin && birth_date){
+            $.post("/app/update_doctor/", {"csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),
+                "data" : JSON.stringify(data)},
+                function(response){
+                location.reload(true);
+                toastr["success"]("Doctor has been updated!")
+            });
+
+        }else{
+            alert("please select all field and Id..");
+        }
+    });
+    <!-- confirm delete function -->
+
+    var deleteLinks = document.querySelectorAll('.delete');
+
+    for (var i = 0; i < deleteLinks.length; i++) {
+        deleteLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var choice = confirm(this.getAttribute('data-confirm'));
+
+            if (choice) {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+    }
+    $('#myTabContent').fadeIn().delay(10000).fadeOut();
+</script>
+{% endblock %}

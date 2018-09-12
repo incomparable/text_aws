@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+
+<!--<div class="col-lg-12 col-md-6 col-sm-6 col-xs-6" style="float:right; margin-right:-561px; margin-top:-373px;">-->
+<!--<p>Send Email</p>-->
+<!---->
+    <!--<form class="form-horizontal" role="form" method="post">-->
+        <!--{% csrf_token %}-->
+        <!--<div class="form-group" id="main-form1">-->
+            <!--<select class="sele" style="margin-left: 16px;">-->
+                <!--<option value="" readonly="readonly" selected disabled>Select Doctor Id | Name</option>-->
+                <!--{% for item in doctor %}-->
+                <!--<option name="id" value="{{item.id}}">{{item.id}} | {{item.d_name}}</option>-->
+                <!--{% endfor %}-->
+            <!--</select>-->
+
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">-->
+                <!--<input type="number" hidden name="id" id="id">-->
+                <!--<input type="text" name="name" class="form-control" id="name" placeholder="Doctor Name" value="" required>-->
+            <!--</div>-->
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">-->
+                <!--<input type="number" class="form-control" name="age" id="age" value="" placeholder="Doctor Age" required>-->
+            <!--</div>-->
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">-->
+                <!--<input type="email" id="d_email" class="form-control" name="email" value="" placeholder="Doctor email" required>-->
+            <!--</div>-->
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">-->
+                <!--<input type="text" id="specification" name="specification" class="form-control" value="" placeholder="Doctor Specification" required>-->
+            <!--</div>-->
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">-->
+                <!--<input type="number" id="cabin" name="cabin" value="" class="form-control" placeholder="Doctor Cabin_no" required>-->
+            <!--</div>-->
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">-->
+                <!--<input type="date" id="birth_date" name="birth_date" value="" class="form-control" placeholder="Doctor birth_date" required>-->
+            <!--</div><br>-->
+            <!--<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 button" style="text-align:center;">-->
+                <!--<center><button type="submit" id="save_btn" class="form-control" style="background: green; width: 200px;">Update</button></center>-->
+            <!--</div><br><br><br>-->
+
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+<form method="post">
+    {% csrf_token %}
+    <input type="email" name="to_email" placeholder="cc" required style="width: 220px;"><br><br>
+    <textarea name="body_text" value="" required style="width: 220px; height: 100px"></textarea><br><br>
+
+    <!--<input type="email" name="supplieremail" value="" placeholder="receiver" required style="width: 220px;"><br><br>-->
+    <select class="sele" style="margin-left: 16px;">
+        <option value="" readonly="readonly" selected disabled>Select Doctor Id | Name</option>
+        {% for item in doctor %}
+        <option name="supplieremail" value="{{item.email}}">{{item.email}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Save" style="width: 110px;">
+</form><br>
+
+
+{% endblock content %}

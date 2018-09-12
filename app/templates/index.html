@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+
+
+<!--<table border="1" width="100%">-->
+    <!--<thead>-->
+        <!--<th>Doctor Name</th>-->
+        <!--<th>Doctor Age</th>-->
+        <!--<th>Doctor Specification</th>-->
+        <!--<th>Doctor Cabin_no</th>-->
+        <!--<th>X</th>-->
+
+    <!--</thead>-->
+    <!--<tbody>-->
+        <!--{% for item in doctor %}-->
+        <!--<tr>-->
+            <!--<td>{{item.d_name}}</td>-->
+            <!--<td>{{item.d_age}}</td>-->
+            <!--<td>{{item.specification}}</td>-->
+            <!--<td>{{item.cabin_no}}</td>-->
+            <!--<td style="text-align:center;"><a href="/app/delete-doctor/{{ item.id }}"><i class="fa fa-trash"></i></a></td>-->
+        <!--</tr>-->
+        <!--{% endfor %}-->
+    <!--</tbody>-->
+<!--</table><br>-->
+<!--<form method="post">-->
+    <!--{% csrf_token %}-->
+        <!--<input type="text" name="name" placeholder="Doctor Name" value="" size="36">-->
+        <!--<input type="text" name="age" value="" placeholder="Doctor Age" size="36">-->
+        <!--<input type="text" name="specification" value="" placeholder="Doctor Specification" size="36">-->
+        <!--<input type="text" name="cabin" value="" placeholder="Doctor Cabin_no" size="36">-->
+        <!--<input type="submit" value="Save" style="width: 90px;">-->
+<!---->
+<!--</form>-->
+{% endblock %}

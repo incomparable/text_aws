@@ -25,7 +25,7 @@ SECRET_KEY = ')f7i+nhv-o%x@clcuae+9y2e7mv4e0#b4+)$-_e+w^uig2ngfy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['18.188.64.112','ec2-18-188-64-112.us-east-2.compute.amazonaws.com']
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -130,7 +130,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static"),
+#]
+
+STATIC_ROOT = "/home/ubuntu/text_aws/static/"
